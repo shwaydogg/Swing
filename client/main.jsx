@@ -1,15 +1,16 @@
 App = React.createClass({
  
   render() {
-    return (
+    return ( 
       <div className="container">
         <header>
-          <h1>Todo List</h1>
+          <h1>New Node</h1>
         </header>
- 
-        <ul>
-          Line
-        </ul>
+          <form>
+          <input type="text" value="title" placeholder="title" />
+          <input type="text" value="content" placeholder="content" />
+          <input type="submit" />
+        </form>
       </div>
     );
   }
