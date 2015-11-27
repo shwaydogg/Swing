@@ -3,13 +3,13 @@ App = React.createClass({
   
   getMeteorData() {
     return {
-      nodes: Nodes.find({}).fetch()
+      items: Items.find({}).fetch()
     }
   },
 
-  renderNodes() {
-    return this.data.nodes.map((node) => {
-      return <Node key={node._id} node={node} />;
+  renderItems() {
+    return this.data.items.map((item) => {
+      return <Item key={item._id} item={item} />;
     });
   },
 
@@ -21,25 +21,23 @@ App = React.createClass({
     var title = React.findDOMNode(this.refs.titleInput).value.trim();
     var content = React.findDOMNode(this.refs.contentInput).value.trim();
     
-    var node = new Node();
-
-    node.set({
+    var n = new AstroItem();
+    n.set({
       title: title,
-      content: content,
-      createdAt: new Date() // current time
+      content: content
     });
 
-    node.save();
+    n.save();
  
     // Clear form
-    React.findDOMNode(this.refs.titleInput).value = "";
-    React.findDOMNode(this.refs.contentInput).value = "";
+    React.findDOMItem(this.refs.titleInput).value = "";
+    React.findDOMItem(this.refs.contentInput).value = "";
   },
 
   render() {return ( 
       <div className="container">
         <header>
-          <h1>New Node</h1>
+          <h1>New Item</h1>
         </header>
           <form onSubmit={this.handleSubmit}>
           <input
@@ -55,7 +53,7 @@ App = React.createClass({
           <input type="submit" />
         </form>
         <ul>
-          {this.renderNodes()}
+          {this.renderItems()}
         </ul>
       </div>
 
