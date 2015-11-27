@@ -1,16 +1,14 @@
 App = React.createClass({
-  //mixins: [ReactMeteorData],
-
-  getNodes() {
-    return [
-      {_id: '1', title: "hi"}
-        ]
-
-    //return Nodes.find({},{transform:null}).fetch();
+  mixins: [ReactMeteorData],
+  
+  getMeteorData() {
+    return {
+      nodes: Nodes.find({}).fetch()
+    }
   },
- 
+
   renderNodes() {
-    return this.getNodes().map((node) => {
+    return this.data.nodes.map((node) => {
       return <Node key={node._id} node={node} />;
     });
   },
