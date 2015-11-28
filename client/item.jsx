@@ -7,8 +7,6 @@ Item = React.createClass({
     this.setState({mode: 'edit'});
   },
   render() {
-    //var self = this;
-    //console.log("in Item render", this);
     var item;
     if(this.state.mode == 'view' ){
       item = 
@@ -19,11 +17,7 @@ Item = React.createClass({
           <DeleteBtn item={this.props.item}/>
         </div>
     }else{
-      var onSave = ()=>{
-        this.setState({mode: 'view'});
-      };
-      
-      item = <ItemForm item={this.props.item} onSave={onSave}/>;
+      item = <ItemForm item={this.props.item} onSave={()=>this.setState({mode: 'view'})}/>;
     }
     return (
       <li>
