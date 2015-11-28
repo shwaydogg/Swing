@@ -1,5 +1,5 @@
 App = React.createClass({
-  mixins: [ReactMeteorData],
+  mixins: [ReactMeteorData],//Seems to only be needed for data retrieval (not updates)
   
   getMeteorData() {
     return {
@@ -13,6 +13,20 @@ App = React.createClass({
     });
   },
 
+  render() {return ( 
+      <div className="container">
+        <header>
+          <h1>New Item</h1>
+        </header>
+        <ItemForm/>
+        <ul>
+          {this.renderItems()}
+        </ul>
+      </div>
+  )}
+});
+
+ItemForm = React.createClass({
   handleSubmit(event) {
     console.log("submitted form");
     event.preventDefault();
@@ -35,10 +49,6 @@ App = React.createClass({
   },
 
   render() {return ( 
-      <div className="container">
-        <header>
-          <h1>New Item</h1>
-        </header>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text" 
@@ -52,10 +62,5 @@ App = React.createClass({
 
           <input type="submit" />
         </form>
-        <ul>
-          {this.renderItems()}
-        </ul>
-      </div>
-
   )}
 });
