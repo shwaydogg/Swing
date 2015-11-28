@@ -39,7 +39,7 @@ App = React.createClass({
         <header>
           <h1>New Item</h1>
         </header>
-          <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text" 
             ref="titleInput"
