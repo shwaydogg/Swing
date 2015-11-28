@@ -18,22 +18,7 @@ Item = React.createClass({
           <DeleteBtn item={this.props.item}/>
         </div>
     }else{
-        item =
-        <div className="itemEdit">
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type="text" 
-              ref="titleInput"
-              placeholder="title" 
-            />
-            <input
-              type="text"
-              ref="contentInput"
-              placeholder="content" />
-
-            <input type="submit" />
-          </form>
-        </div>
+        item = <ItemForm/>;
     }
     return (
       <li>
