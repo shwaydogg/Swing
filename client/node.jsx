@@ -9,20 +9,26 @@ Item = React.createClass({
     return (
       <li>
         {this.props.item.title}
-        <DeleteBtn/>
+        <DeleteBtn item={this.props.item}/>
       </li>
     );
   }
 });
 
 var DeleteBtn = React.createClass({
-  handleClick: function(event) {
+  handleDelete: function(event) {
+    //Gets triggerend when delete is clicked.
     event.preventDefault();
     console.log('DELETED');
+
+    var confirmDelete = confirm("Are you sure you want to delete?");
+    if(confirmDelete){
+      this.props.item.remove();
+    }
   },
   render() {
     return (
-      <button onClick={this.handleClick}>&times;</button>
+      <button onClick={this.handleDelete}>&times;</button>
     );
   }
 });
