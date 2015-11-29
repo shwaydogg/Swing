@@ -16,7 +16,7 @@ App = React.createClass({
   render() {return ( 
       <div className="container">
         <header>
-          <h1>New Item</h1>
+          <h1>reCRUDact</h1>
         </header>
         <ItemForm/>
         <ul>

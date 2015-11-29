@@ -28,6 +28,7 @@ ItemForm = React.createClass({
     if(this.state.mode == "new"){
       React.findDOMNode(this.refs.titleInput).value = "";
       React.findDOMNode(this.refs.contentInput).value = "";
+      this.item = new AstroItem();
     }else{
       this.props.onSave();
     }
