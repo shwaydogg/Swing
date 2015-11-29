@@ -33,6 +33,10 @@ ItemForm = React.createClass({
       this.props.onSave();
     }
   },
+  componentDidMount: function() {
+    //console.log ( "The Dom Node:", this.refs.titleInput);
+    this.mediumContentEditor =  new MediumEditor('.mediumEdit');
+  },
 
   render() {
     var item = this.item;
@@ -45,14 +49,16 @@ ItemForm = React.createClass({
             placeholder="title" 
             defaultValue={item.title}
           />
-          <input
+          <textarea
             type="text"
+            className="mediumEdit"
             ref="contentInput"
             placeholder="content"
             defaultValue={item.content}
+            
             />
-
           <input type="submit" />
         </form>
   )}
 });
+//<div className="medium-edit" ref="contentInput">{item.content}</div>

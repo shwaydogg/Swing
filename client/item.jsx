@@ -7,14 +7,16 @@ Item = React.createClass({
     this.setState({mode: 'edit'});
   },
   render() {
-    var item;
-    var restLink = "v1/item/" + this.props.item._id;
+    var item, self = this,
+        restLink = "v1/item/" + this.props.item._id;
+    function getContent(){ return {__html: self.props.item.content};}
     if(this.state.mode == 'view' ){
       item = 
         <div className="itemView">
-          <h3 style={{'margin-bottom': 0}}>Title: {this.props.item.title}</h3>
-          <h4 style={{'margin': 0}}>Content: {this.props.item.content}</h4>
-          <div>id: {this.props.item._id}</div>
+          <h3 style={{'marginBottom': 0}}>{this.props.item.title}</h3>
+          <div>{this.props.item._id}</div>
+          <div style={{'margin': 0}}dangerouslySetInnerHTML={getContent()}></div>
+
           <a href={restLink} target="_blank"><button>Rest Link</button></a>
           <button onClick={this.handleEdit}>Edit</button>
           <DeleteBtn item={this.props.item} text={'Delete'}/>
