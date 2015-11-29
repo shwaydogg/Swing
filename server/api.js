@@ -22,4 +22,23 @@ Api.addRoute('v1/item/:itemId', {
   }
 });
 
+Api.addRoute('v1/items/:itemIds', {
+  authRequired: false,
+  enableCors: true
+}, {
+  get: function() {
+    var items, itemIds = this.urlParams.itemIds;
+    check(itemIds, String);
+    items = itemIds.split('-');
+    if(items.length > 10000){
+      throw new Meteor.Error("Too-many-ids");
+    }
+    items = _.map(items, id => {
+      check(id, String);
+      return Items.findOne({_id: id}, {transform:null});
+    });
+    return items;
+  }
+});
+
 //Meteor.publish('items', ()=>Items.find({}) );//Currently AutoPublished so not needed.
