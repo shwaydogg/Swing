@@ -1,5 +1,5 @@
-function getFlowContent(domId, flowId){ 
-  $.get('http://localhost:3000/v1/item/' + flowId, function(data){ 
+function getFlowContent(rootURL, domId, flowId){ 
+  $.get(rootURL + '/v1/item/' + flowId, function(data){ 
     //Warn if no content:
     if(!data.content)console.warn('No Flow Value Received');
     //Edit DOM:
@@ -8,4 +8,6 @@ function getFlowContent(domId, flowId){
     console.warn('HTTP Get Request Failed');
   });
 };
-getFlowContent("MWoaop6N35YLKYRYP", "MWoaop6N35YLKYRYP");
+
+//example:
+//getFlowContent('http://localhost:3000', "MWoaop6N35YLKYRYP", "MWoaop6N35YLKYRYP");
