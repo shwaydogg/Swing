@@ -8,8 +8,9 @@ DeleteBtn = React.createClass({
     }
   },
   render() {
+    var text = this.props.text ? this.props.text : '&times;';
     return (
-      <button onClick={this.handleDelete}>&times;</button>
+      <button onClick={this.handleDelete}>{text}</button>
     );
   }
 });

@@ -6,17 +6,15 @@ Api = new Restivus({
   prettyJson: true
 });
 
-Api.addRoute('v1/item-id/:itemId', {
+Api.addRoute('v1/item/:itemId', {
   authRequired: false,
   enableCors: true
 }, {
   get: function() {
-    var item,
-      itemId = this.urlParams.itemId;
-
+    var item, itemId = this.urlParams.itemId;
     check(itemId, String);
 
-    item = Items.findOne({_id: itemId});
+    item = Items.findOne({_id: itemId}, {transform:null});
     if (item) 
       return item;
     return 
@@ -24,6 +22,4 @@ Api.addRoute('v1/item-id/:itemId', {
   }
 });
 
-Meteor.publish('items', function(){
-  return Items.find();
-});
+//Meteor.publish('items', ()=>Items.find({}) );//Currently AutoPublished so not needed.
