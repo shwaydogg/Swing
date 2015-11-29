@@ -9,8 +9,8 @@ function getFlowContent(rootURL, domId, flowId){
   });
 };
 
-function getItems(rootURL, items){ 
-  $.get(rootURL + '/v1/items/' + items , function(data){ 
+function getItems(url){ 
+  $.get( url, function(data){ 
     //Warn if no content:
     if(!data.length)console.warn('No Flow Value Received');
     //Edit DOM:
@@ -25,4 +25,4 @@ function getItems(rootURL, items){
 
 //examples:
 //getFlowContent('http://localhost:3000', "MWoaop6N35YLKYRYP", "MWoaop6N35YLKYRYP");
-//getItems('http://localhost:3000', "zdRzKfx6LB9ZPB93w-MWoaop6N35YLKYRYP");
+//getItems('http://localhost:3000/v1/item/zdRzKfx6LB9ZPB93w-MWoaop6N35YLKYRYP");
