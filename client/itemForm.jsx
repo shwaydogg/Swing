@@ -27,7 +27,12 @@ ItemForm = React.createClass({
     // Clear form
     if(this.state.mode == "new"){
       React.findDOMNode(this.refs.titleInput).value = "";
-      React.findDOMNode(this.refs.contentInput).value = "";
+      //this.mediumContentEditor.setContent('');// Not working setContent is undefined.
+      //The above line should be all that's needed, the following three lines
+      //are a replacement work around:
+      React.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
+      this.mediumContentEditor.destroy();
+      this.mediumContentEditor =  new MediumEditor('.mediumEdit');
       this.item = new AstroItem();
     }else{
       this.props.onSave();
