@@ -1,7 +1,7 @@
 ItemForm = React.createClass({
   getInitialState: function() {
     if(!this.props.item){
-      this.item = new AstroItem();
+      this.item = new AstroItem({ownerId: this.props.currentUser._id} );
       return {mode: 'new'};
     }
     else{
@@ -33,7 +33,7 @@ ItemForm = React.createClass({
       React.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
       this.mediumContentEditor.destroy();
       this.setupMediumEditor();
-      this.item = new AstroItem();
+      this.item = new AstroItem({ownerId: this.props.currentUser._id} );
     }else{
       this.props.onSave();
     }
