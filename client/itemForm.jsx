@@ -75,7 +75,8 @@ ItemForm = React.createClass({
             placeholder="content"
             defaultValue={item.content}
             />
-          <input type="submit" />
+          <br/>
+          <input type="submit" value={this.state.mode == 'new' ? 'Add New' : 'Save'}/>
         </form>
   )}
 });
