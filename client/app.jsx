@@ -16,7 +16,7 @@ App = React.createClass({
   render() {return ( 
       <div className="container">
         <header>
-          <h1>Swing Away!</h1>
+          <h1>Swing.</h1>
         </header>
         <ItemForm/>
         <ul>

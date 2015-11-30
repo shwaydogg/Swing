@@ -27,8 +27,11 @@ Item = React.createClass({
         onSave={()=>this.setState({mode: 'view'})} 
       />;
     }
+      
+    
+
     return (
-      <li>
+      <li id={'ID'+this.props.item._id}>
         {item}
       </li>
     );
