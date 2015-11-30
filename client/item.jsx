@@ -12,10 +12,10 @@ Item = React.createClass({
     function getContent(){ return {__html: self.props.item.content};}
     if(this.state.mode == 'view' ){
       item = 
-        <div className="itemView">
-          <h3 style={{'marginBottom': 0}}>{this.props.item.title}</h3>
-          <div>{this.props.item._id}</div>
-          <div style={{'margin': 0}}dangerouslySetInnerHTML={getContent()}></div>
+        <div className="item itemView">
+          <h3 className="title">{this.props.item.title}</h3>
+          <aside className="id">{this.props.item._id}</aside>
+          <div className="content" dangerouslySetInnerHTML={getContent()}></div>
 
           <a href={restLink} target="_blank"><button>Rest Link</button></a>
           <button onClick={this.handleEdit}>Edit</button>

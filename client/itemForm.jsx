@@ -32,7 +32,7 @@ ItemForm = React.createClass({
       //are a replacement work around:
       React.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
       this.mediumContentEditor.destroy();
-      this.mediumContentEditor =  new MediumEditor('.mediumEdit');
+      this.mediumContentEditor =  new MediumEditor('.mediumEdit', {forcePlainText: true});
       this.item = new AstroItem();
     }else{
       this.props.onSave();
@@ -40,23 +40,25 @@ ItemForm = React.createClass({
   },
   componentDidMount: function() {
     //console.log ( "The Dom Node:", this.refs.titleInput);
-    this.mediumContentEditor =  new MediumEditor('.mediumEdit');
+    this.mediumContentEditor =  new MediumEditor('.mediumEdit', {forcePlainText: true});
   },
 
   render() {
     var item = this.item;
     return ( 
-        <form onSubmit={this.handleSubmit}>
-          {this.state.mode}
+        <form className="item itemEdit" onSubmit={this.handleSubmit}>
+          <label>Title:</label>
           <input
+            className="title"
             type="text" 
             ref="titleInput"
             placeholder="title" 
             defaultValue={item.title}
           />
+          <label>Content:</label>
           <textarea
             type="text"
-            className="mediumEdit"
+            className="content mediumEdit"
             ref="contentInput"
             placeholder="content"
             defaultValue={item.content}
