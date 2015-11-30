@@ -25,3 +25,5 @@ check
 mediumeditor:mediumeditor
 east5th:package-scan
 stylus
+accounts-ui
+accounts-password
