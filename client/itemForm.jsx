@@ -29,19 +29,32 @@ ItemForm = React.createClass({
       this.setupMediumEditor();
       this.item = new AstroItem({ownerId: this.props.currentUser._id} );
     }else{
-      this.props.onSave();
+      this.props.onSubmit();
     }
+
     this.item.set({
       title: title,
       content: content
     });
     this.item.save();
 
-    var tags = _.uniq(getTags(title));//Find All uniq tags
-    //console.log('tags', tags);
+    //++++++++++++++++++++++
+    //Handle Tags:
+    //++++++++++++++++++++++
 
+    var newTags = _.uniq(getTags(title));//Find All uniq tags
+
+    var currTags =  Tags.find({itemId: this.item._id}).fetch();
+    var toRemove = _.remove(currTags, 
+                        tag=> ! _.find(newTags, i => i == tag.title));
+    
+    //`newTags` should not contain tags that are already in the DB.
+    //Remove them from `newTags`:
+    _.remove(newTags, title=> _.find(currTags, tag => tag.title == title));
+
+    _.each(toRemove, tag => tag.remove());
     //Add Tags to DB:
-    _.each(tags, t=>{
+    _.each(newTags, t=>{
       tag = new Tag({
         title: t,
         itemId: this.item._id,

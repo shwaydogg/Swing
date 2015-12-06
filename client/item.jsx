@@ -25,7 +25,7 @@ Item = React.createClass({
       item = <ItemForm  
         item={this.props.item} 
         currentUser={this.props.currentUser}
-        onSave={()=>this.setState({mode: 'view'})} 
+        onSubmit={()=>this.setState({mode: 'view'})} 
       />;
     }
       
