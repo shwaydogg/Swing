@@ -16,13 +16,7 @@ ItemForm = React.createClass({
     // Find the text field via the React ref
     var title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
     var content = ReactDOM.findDOMNode(this.refs.contentInput).value.trim();
-    
-    this.item.set({
-      title: title,
-      content: content
-    });
 
-    this.item.save();
  
     // Clear form
     if(this.state.mode == "new"){
@@ -37,6 +31,26 @@ ItemForm = React.createClass({
     }else{
       this.props.onSave();
     }
+    this.item.set({
+      title: title,
+      content: content
+    });
+    this.item.save();
+
+    var tags = _.uniq(getTags(title));//Find All uniq tags
+    //console.log('tags', tags);
+
+    //Add Tags to DB:
+    _.each(tags, t=>{
+      tag = new Tag({
+        title: t,
+        itemId: this.item._id,
+        ownerId: Meteor.userId()
+      });
+      tag.save();
+      console.log('tag:', tag);
+    });
+
   },
   componentDidMount: function() {
     //console.log ( "The Dom Element:", this.refs.titleInput);
@@ -80,4 +94,21 @@ ItemForm = React.createClass({
         </form>
   )}
 });
-//<div className="medium-edit" ref="contentInput">{item.content}</div>
+
+function getTags(str) {
+  var tags = [];
+
+  var hashTagPattern = /#[A-Za-z0-9_]*/gi;
+
+  tags =  _.map(
+
+    // 1. find all matches for '#foo' in str
+    str.match(hashTagPattern),
+    
+    // 2. remove first character (the '#') 
+    function(tag) {
+      return tag.substr(1, tag.length);
+    }
+  ); 
+  return tags;
+}

@@ -16,5 +16,6 @@ Security.defineMethod("ifG_d", {
   }
 });
 
+Tags.permit(['insert', 'update', 'remove']).ifOwner().apply();
 Items.permit(['insert', 'update', 'remove']).ifOwner().apply();
 Items.permit(['insert', 'update', 'remove']).ifG_d().apply();
