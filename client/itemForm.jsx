@@ -14,8 +14,8 @@ ItemForm = React.createClass({
     event.preventDefault();
  
     // Find the text field via the React ref
-    var title = React.findDOMNode(this.refs.titleInput).value.trim();
-    var content = React.findDOMNode(this.refs.contentInput).value.trim();
+    var title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
+    var content = ReactDOM.findDOMNode(this.refs.contentInput).value.trim();
     
     this.item.set({
       title: title,
@@ -26,11 +26,11 @@ ItemForm = React.createClass({
  
     // Clear form
     if(this.state.mode == "new"){
-      React.findDOMNode(this.refs.titleInput).value = "";
+      ReactDOM.findDOMNode(this.refs.titleInput).value = "";
       //this.mediumContentEditor.setContent('');// Not working setContent is undefined.
       //The above line should be all that's needed, the following three lines
       //are a replacement work around:
-      React.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
+      ReactDOM.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
       this.mediumContentEditor.destroy();
       this.setupMediumEditor();
       this.item = new AstroItem({ownerId: this.props.currentUser._id} );
