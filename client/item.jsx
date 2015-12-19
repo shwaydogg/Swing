@@ -6,6 +6,16 @@ Item = React.createClass({
     event.preventDefault();
     this.setState({mode: 'edit'});
   },
+  handleCreateChild() {
+    event.preventDefault();
+    var child = new AstroItem({
+      ownerId: this.props.currentUser._id,
+      parentId: this.props.item._id,
+      title: "New Child Title",
+      content: "Give your child content."
+    });
+    child.save();
+  },
   render() {
     var item, self = this,
         restLink = "v1/item/" + this.props.item._id;
@@ -19,6 +29,7 @@ Item = React.createClass({
 
           <a href={restLink} target="_blank"><button>Rest Link</button></a>
           <button onClick={this.handleEdit}>Edit</button>
+          <button onClick={this.handleCreateChild}>NEW CHILD</button>
           <DeleteBtn item={this.props.item} text={'Delete'}/>
         </div>
     }else{
