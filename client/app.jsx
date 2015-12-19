@@ -5,17 +5,11 @@ App = React.createClass({
     var currentUser = Meteor.user();
     if(currentUser)
       return {
-        currentUser: Meteor.user(),
-        items: Items.find({ownerId: currentUser._id}).fetch()
+        currentUser: Meteor.user()
       }
     else return {}; //Must return something.
   },
 
-  renderItems() {
-    return this.data.items.map((item) => {
-      return <Item key={item._id} item={item} currentUser={this.data.currentUser} />;
-    });
-  },
 
   render() {return ( 
       <div className="container">
@@ -29,7 +23,7 @@ App = React.createClass({
           <main>
             <ItemForm currentUser={this.data.currentUser}/>
             <ul>
-              {this.renderItems()}
+              <List currentUser={this.data.currentUser}/>
             </ul>
           </main>
             : 
