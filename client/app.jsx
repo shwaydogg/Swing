@@ -22,9 +22,7 @@ App = React.createClass({
         { this.data.currentUser ?
           <main>
             <ItemForm currentUser={this.data.currentUser}/>
-            <ul>
-              <List currentUser={this.data.currentUser}/>
-            </ul>
+              <List isRoot={true} currentUser={this.data.currentUser}/>
           </main>
             : 
             <p>Login Above to view your saved items.</p>

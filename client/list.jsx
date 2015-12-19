@@ -4,7 +4,10 @@ List = React.createClass({
   getMeteorData() {
     if(this.props.currentUser)
       return {
-        items: Items.find({ownerId: this.props.currentUser._id}).fetch()
+        items: Items.find({
+          ownerId: this.props.currentUser._id,
+          parentId: this.props.isRoot ? null : this.props.item._id
+        }).fetch()
       }
     else return {}; //Must return something.
   },
@@ -15,6 +18,6 @@ List = React.createClass({
     });
   },
   render: function() {
-    return <div>{this.renderItems()}</div>
+    return <ul>{this.renderItems()}</ul>
   }
 });

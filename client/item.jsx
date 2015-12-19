@@ -31,6 +31,7 @@ Item = React.createClass({
           <button onClick={this.handleEdit}>Edit</button>
           <button onClick={this.handleCreateChild}>NEW CHILD</button>
           <DeleteBtn item={this.props.item} text={'Delete'}/>
+          <List isRoot={false} item={this.props.item} currentUser={this.props.currentUser}/>
         </div>
     }else{
       item = <ItemForm  
