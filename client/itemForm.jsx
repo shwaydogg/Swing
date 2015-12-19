@@ -15,6 +15,7 @@ ItemForm = React.createClass({
  
     // Find the text field via the React ref
     var title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
+    var rank = ReactDOM.findDOMNode(this.refs.rankInput).value;
     var content = ReactDOM.findDOMNode(this.refs.contentInput).value.trim();
 
  
@@ -34,6 +35,7 @@ ItemForm = React.createClass({
 
     this.item.set({
       title: title,
+      rank: rank,
       content: content
     });
     this.item.save();
@@ -94,6 +96,13 @@ ItemForm = React.createClass({
             placeholder="title" 
             defaultValue={item.title}
           />
+          <label>Rank:</label>
+          <input 
+            className="rank"
+            type="number"
+            ref="rankInput"
+            defaultValue={item.rank}
+          /> 
           <label>Content:</label>
           <textarea
             type="text"

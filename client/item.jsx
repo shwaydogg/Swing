@@ -23,7 +23,7 @@ Item = React.createClass({
     if(this.state.mode == 'view' ){
       item = 
         <div className="item itemView">
-          <h3 className="title">{this.props.item.title}</h3>
+          <h3 className="title">{this.props.item.rank}: {this.props.item.title}</h3>
           <aside className="id">{this.props.item._id}</aside>
           <div className="content" dangerouslySetInnerHTML={getContent()}></div>
 

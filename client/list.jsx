@@ -7,7 +7,7 @@ List = React.createClass({
         items: Items.find({
           ownerId: this.props.currentUser._id,
           parentId: this.props.isRoot ? null : this.props.item._id
-        }).fetch()
+        },{sort:{rank:1}}).fetch()
       }
     else return {}; //Must return something.
   },
