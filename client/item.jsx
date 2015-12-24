@@ -24,21 +24,25 @@ Item = React.createClass({
       item = 
         <div className="item itemView">
           <h3 className="title">{this.props.item.rank}: {this.props.item.title}</h3>
-          <aside className="id">{this.props.item._id}</aside>
           <div className="content" dangerouslySetInnerHTML={getContent()}></div>
 
           <a href={restLink} target="_blank"><button>Rest Link</button></a>
           <button onClick={this.handleEdit}>Edit</button>
           <button onClick={this.handleCreateChild}>NEW CHILD</button>
           <DeleteBtn item={this.props.item} text={'Delete'}/>
+          <aside className="id">{this.props.item._id}</aside>
+
           <List isRoot={false} item={this.props.item} currentUser={this.props.currentUser}/>
         </div>
     }else{
-      item = <ItemForm  
-        item={this.props.item} 
-        currentUser={this.props.currentUser}
-        onSubmit={()=>this.setState({mode: 'view'})} 
-      />;
+      item = <div>
+          <ItemForm  
+            item={this.props.item} 
+            currentUser={this.props.currentUser}
+            onSubmit={()=>this.setState({mode: 'view'})} 
+          />
+          <List isRoot={false} item={this.props.item} currentUser={this.props.currentUser}/>
+        </div>;
     }
       
     
