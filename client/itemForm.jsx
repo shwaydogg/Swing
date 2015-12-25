@@ -57,15 +57,22 @@ ItemForm = React.createClass({
     _.remove(newTags, title=> _.find(currTags, tag => tag.title == title));
 
     _.each(toRemove, tag => tag.remove());
+    
     //Add Tags to DB:
     _.each(newTags, t=>{
+
       tag = new Tag({
         title: t,
         itemId: this.item._id,
         ownerId: Meteor.userId()
       });
-      tag.save();
-      console.log('tag:', tag);
+
+      Meteor.call('/tag/save', tag, (err, result)=> {
+        if (err) {
+          console.log('there was a client side error: ' + err.reason);
+        }
+      });
+
     });
 
   },
