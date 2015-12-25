@@ -21,7 +21,7 @@ App = React.createClass({
 
         { this.data.currentUser ?
           <main>
-            <ItemForm currentUser={this.data.currentUser}/>
+            <ItemForm currentUser={this.data.currentUser} newItem={true} />
               <List isRoot={true} currentUser={this.data.currentUser}/>
           </main>
             : 

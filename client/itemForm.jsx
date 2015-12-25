@@ -1,13 +1,12 @@
 ItemForm = React.createClass({
   getInitialState: function() {
-    if(!this.props.item){
-      this.item = new AstroItem({ownerId: this.props.currentUser._id} );
-      return {mode: 'new'};
+
+    this.item = this.props.item || new AstroItem({ownerId: this.props.currentUser._id} );
+
+    return {
+      newItem: this.props.newItem || false
     }
-    else{
-      this.item = this.props.item;
-      return {mode: 'edit'};
-    }
+
   },
 
   handleSubmit(event) {
@@ -20,7 +19,7 @@ ItemForm = React.createClass({
 
  
     // Clear form
-    if(this.state.mode == "new"){
+    if(this.state.newItem){
       ReactDOM.findDOMNode(this.refs.titleInput).value = "";
       //this.mediumContentEditor.setContent('');// Not working setContent is undefined.
       //The above line should be all that's needed, the following three lines
@@ -85,7 +84,7 @@ ItemForm = React.createClass({
 
   render() {
     var item = this.item, 
-        contentClass = "content mediumEdit " + this.state.mode;
+        contentClass = "content mediumEdit "; //was this.item.mode
     return ( 
         <form className="item itemEdit" onSubmit={this.handleSubmit}>
           <label>Title:</label>
@@ -112,7 +111,7 @@ ItemForm = React.createClass({
             defaultValue={item.content}
             />
           <br/>
-          <input type="submit" value={this.state.mode == 'new' ? 'Add New' : 'Save'}/>
+          <input type="submit" value={this.state.newItem? 'Add New' : 'Save'}/>
         </form>
   )}
 });
