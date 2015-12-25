@@ -12,66 +12,41 @@ ItemForm = React.createClass({
   handleSubmit(event) {
     event.preventDefault();
 
-    let params = {
+    this.item.set({
       title:   ReactDOM.findDOMNode(this.refs.titleInput).value.trim(),
       rank:    ReactDOM.findDOMNode(this.refs.rankInput).value,
       content: ReactDOM.findDOMNode(this.refs.contentInput).value.trim(),
       ownerId: this.props.currentUser._id
-    };
+    })
 
-    if(this.state.newItem){
+    Meteor.call('/item/save', this.item, (err, result)=> {
+      if (!err) {
 
-      Meteor.call('/item/create', params, (err, result)=> {
-        if (!err) {
-          // console.log("client side item id: " + result._id);
-          // ReactDOM.findDOMNode(this.refs.titleInput).value = "";
-         // ReactDOM.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
-        // this.mediumContentEditor.destroy();
-        // this.setupMediumEditor();
-        // this.item = new AstroItem({ownerId: this.props.currentUser._id} );
-        } else {
-          console.log('there was a client side error: ' + err.reason);
+        if(this.state.newItem){
+          //Clear inputs and create new item
+          ReactDOM.findDOMNode(this.refs.titleInput).value = "";
+          ReactDOM.findDOMNode(this.refs.rankInput).value = "";
+          ReactDOM.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
+          this.mediumContentEditor.destroy();
+          this.setupMediumEditor();
+          this.item = new AstroItem({ownerId: this.props.currentUser._id} );
         }
-      });
 
-    }else{
-      this.props.onSubmit();
-    };
-
-    return;
- 
-    // Find the text field via the React ref
-    // var title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
-    // var rank = ReactDOM.findDOMNode(this.refs.rankInput).value;
-    // var content = ReactDOM.findDOMNode(this.refs.contentInput).value.trim();
-
- 
-    // Clear form
-    // if(this.state.newItem){
-    //   ReactDOM.findDOMNode(this.refs.titleInput).value = "";
-    //   //this.mediumContentEditor.setContent('');// Not working setContent is undefined.
-    //   //The above line should be all that's needed, the following three lines
-    //   //are a replacement work around:
-    //   ReactDOM.findDOMNode(this.refs.contentInput).value = "";//Original version before medium
-    //   this.mediumContentEditor.destroy();
-    //   this.setupMediumEditor();
-    //   this.item = new AstroItem({ownerId: this.props.currentUser._id} );
-    // }else{
-    //   this.props.onSubmit();
-    // }
-
-    this.item.set({
-      title: title,
-      rank: rank,
-      content: content
+      } else {
+        console.log('there was a client side error: ' + err.reason);
+      };
     });
-    this.item.save();
+    
+    //update mode of editable item to be view mode
+    if(!this.state.newItem){
+      this.props.onSubmit();
+    }
 
     //++++++++++++++++++++++
     //Handle Tags:
     //++++++++++++++++++++++
 
-    var newTags = _.uniq(getTags(title));//Find All uniq tags
+    var newTags = _.uniq(getTags(this.item.title));//Find All uniq tags
 
     var currTags =  Tags.find({itemId: this.item._id}).fetch();
     var toRemove = _.remove(currTags, 
